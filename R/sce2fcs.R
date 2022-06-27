@@ -111,7 +111,7 @@ sce2fcs <- function(x, split_by = NULL,
     ffs <- lapply(is, function(i) {
         # construct preliminary 'flowFrame'
         z <- y[cs[[i]], , drop = FALSE]
-        ff <- flowFrame(z)
+        ff <- new("flowFrame",exprs=z)
         # update 'AnnotatedDataFrame' of parameters
         ps <- parameters(ff)
         rs <- 2^(ceiling(log2(colMaxs(z))))
