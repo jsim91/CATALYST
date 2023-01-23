@@ -111,6 +111,16 @@ sce2fcs <- function(x, split_by = NULL,
     ffs <- lapply(is, function(i) {
         # construct preliminary 'flowFrame'
         z <- y[cs[[i]], , drop = FALSE]
+        find_na <- c()
+        for(i in 1:ncol(z)) {
+            checkcol <- which(is.na(z[,i]))
+            if(length(checkcol)!=0) {
+                find_na <- append(find_na, checkcol)
+            }
+        }
+        if(length(find_na)!=0) {
+            z <- z[-find_na,]
+        }
         ff <- new("flowFrame",exprs=z)
         # update 'AnnotatedDataFrame' of parameters
         ps <- parameters(ff)
